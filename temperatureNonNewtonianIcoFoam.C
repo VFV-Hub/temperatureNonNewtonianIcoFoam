@@ -73,18 +73,6 @@ int main(int argc, char *argv[])
             solve(UEqn == -fvc::grad(p));
         }
 
-//inicio da edição
-		fvScalarMatrix TEqn1
-		(
-			fvm::ddt(T)
-			+fvm::div(phi,T)
-			-fvm::laplacian(DT,T)
-		);
-
-		TEqn1.solve();
-//final da edição
-
-
         // --- PISO loop
         while (piso.correct())
         {
@@ -128,14 +116,14 @@ int main(int argc, char *argv[])
             U.correctBoundaryConditions();	
         }
 //inicio da edição
-		fvScalarMatrix TEqn2
+		fvScalarMatrix TEqn
 		(
 			fvm::ddt(T)
 			+fvm::div(phi,T)
 			-fvm::laplacian(DT,T)
 		);
 
-		TEqn2.solve();
+		TEqn.solve();
 //final da edição	
 
         runTime.write();
